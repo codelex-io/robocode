@@ -19,17 +19,14 @@ public class CodelexRobot extends AdvancedRobot {
     private int scannedY = 0;
     private int destinationX = 0;
     private int destinationY = 0;
-    private int turnDirection = 0;
 
-    public CodelexRobot() {
+    @Override
+    public void run() {
         Color brandGreen = new Color(76, 175, 80);
         setBodyColor(BLACK);
         setGunColor(brandGreen);
         setBulletColor(brandGreen);
-    }
 
-    @Override
-    public void run() {
         setRadarColor(Color.black);
         setScanColor(Color.yellow);
 
@@ -118,12 +115,6 @@ public class CodelexRobot extends AdvancedRobot {
 
     @Override
     public void onHitRobot(HitRobotEvent e) {
-        if (e.getBearing() >= 0.0D) {
-            this.turnDirection = 1;
-        } else {
-            this.turnDirection = -1;
-        }
-
         this.turnRight(e.getBearing());
         if (e.getEnergy() > 16.0D) {
             this.fire(3.0D);
@@ -137,6 +128,8 @@ public class CodelexRobot extends AdvancedRobot {
             this.fire(0.1D);
         }
 
-        if ((RANDOM.nextInt() % 3) == 0) move();
+        if ((RANDOM.nextInt() % 3) == 0) {
+            move();
+        }
     }
 }
